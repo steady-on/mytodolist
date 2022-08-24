@@ -38,7 +38,7 @@ const TodoForm = ({ onCancel }) => {
       return { ...prevTodo, id: nanoid(), date: new Date(prevTodo.date) };
     });
 
-    addTodo(todo);
+    dispatch(addTodo(todo));
 
     setTodo(initialTodo);
   };
