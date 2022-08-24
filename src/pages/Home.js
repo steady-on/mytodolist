@@ -1,7 +1,14 @@
 import Layout from "../components/UI/Layout";
+import Header from "../components/UI/Header";
+import TodoList from "../components/Todos/TodoList";
 
-const Main = () => {
-  return;
+const Home = () => {
+  return (
+    <Layout>
+      <Header />
+      <TodoList />
+    </Layout>
+  );
 };
 
-export default Main;
+export default Home;

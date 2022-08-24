@@ -13,7 +13,6 @@ export const toggleStatusTodo = createAction(TOGGLE_TODO, (payload) => payload);
 export const getIdTodo = createAction(GETID_TODO, (payload) => payload); //
 
 /* Initial State */
-// { id: 0, title: "", details: "", isDone:false, date: "" }
 const initialState = [
   {
     id: 1,
