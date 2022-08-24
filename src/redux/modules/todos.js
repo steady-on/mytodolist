@@ -20,14 +20,14 @@ const initialState = [
     title: "리액트 강의보기",
     details: "챕터 1부터 챕터 12까지 학습",
     isDone: false,
-    date: new Date(2022, 08, 24),
+    date: new Date(2022, 8, 24),
   },
   {
     id: 2,
     title: "점심 먹기",
     details: "점심 뭐먹지..?",
     isDone: true,
-    date: new Date(2022, 08, 24),
+    date: new Date(2022, 8, 24),
   },
 ];
 
@@ -47,7 +47,7 @@ const todos = (state = initialState, action) => {
     case TOGGLE_TODO:
       return {
         todos: state.todos.map((todo) =>
-          todo.id === action.payload ? { ...todo, isDone: !isDone } : todo
+          todo.id === action.payload ? { ...todo, isDone: !todo.isDone } : todo
         ),
       };
 
