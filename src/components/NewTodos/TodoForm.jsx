@@ -1,12 +1,12 @@
-// New Todos에서 Add button을 누르면 나오는 입력 폼
-// Title, Details, Date 입력할 수 있게
 import "./TodoForm.css";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../../redux/modules/todos";
-import { useState } from "react";
 import { nanoid } from "nanoid";
+import { useState } from "react";
 
-const TodoForm = ({ onCancel }) => {
+const TodoForm = () => {
+  const id = nanoid();
+
   const dispatch = useDispatch();
 
   const initialTodo = {
@@ -14,7 +14,6 @@ const TodoForm = ({ onCancel }) => {
     title: "",
     details: "",
     isDone: false,
-    date: "",
   };
 
   const [todo, setTodo] = useState(initialTodo);
@@ -25,33 +24,23 @@ const TodoForm = ({ onCancel }) => {
     });
   };
 
-  const submitHandler = (event) => {
+  const onSubmitHandler = (event) => {
     event.preventDefault();
-    if (
-      todo.title.trim() === "" ||
-      todo.details.trim() === "" ||
-      todo.date.trim() === ""
-    )
-      return;
-
-    setTodo((prevTodo) => {
-      return { ...prevTodo, id: nanoid(), date: new Date(prevTodo.date) };
-    });
-
-    dispatch(addTodo(todo));
+    if (todo.title.trim() === "" || todo.details.trim() === "") return;
+    dispatch(addTodo({ ...todo, id }));
 
     setTodo(initialTodo);
   };
 
   return (
-    <article className="message is-link">
+    <div className="message is-link">
       <div className="message-header">
-        <p>Add Todo</p>
+        <p className="is-size-4">Add Todo</p>
       </div>
       <div className="message-body">
-        <form onSubmit={submitHandler}>
+        <form onSubmit={onSubmitHandler}>
           <div className="field">
-            <label className="label">Title</label>
+            <label className="label is-size-5">Title</label>
             <input
               className="input"
               type="text"
@@ -62,7 +51,7 @@ const TodoForm = ({ onCancel }) => {
             />
           </div>
           <div className="field">
-            <label className="label">Details</label>
+            <label className="label is-size-5">Details</label>
             <input
               className="input"
               type="text"
@@ -72,27 +61,12 @@ const TodoForm = ({ onCancel }) => {
               onChange={onChangeHandler}
             />
           </div>
-          <div className="field">
-            <label className="label">Date</label>
-            <input
-              className="input"
-              name="date"
-              value={todo.date}
-              type="date"
-              onChange={onChangeHandler}
-            />
-          </div>
           <div className="controls">
-            <button className="button is-danger" onClick={onCancel}>
-              Cancel
-            </button>
-            <button className="button is-link" type="submit">
-              Add Todo
-            </button>
+            <button className="button is-link is-small">Add Todo</button>
           </div>
         </form>
       </div>
-    </article>
+    </div>
   );
 };
 
