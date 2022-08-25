@@ -1,36 +1,16 @@
+import { createAction } from "redux-action";
+
 /* Action Type */
-const ADD_TODO = "ADD_TODO";
-const DELETE_TODO = "DELETE_TODO";
-const TOGGLE_TODO = "TOGGLE_TODO";
-const GETID_TODO = "GETID_TODO";
+const ADD_TODO = "todo/ADD";
+const DELETE_TODO = "todo/DELETE";
+const TOGGLE_TODO = "todo/TOGGLE";
+const GETID_TODO = "todo/GETID";
 
 /* Action Creator */
-export const addTodo = (payload) => {
-  return {
-    type: ADD_TODO,
-    payload,
-  };
-}; // todoitem
-export const deleteTodo = (payload) => {
-  return {
-    type: DELETE_TODO,
-    payload,
-  };
-};
-
-export const toggleStatusTodo = (payload) => {
-  return {
-    type: TOGGLE_TODO,
-    payload,
-  };
-};
-
-export const getIdTodo = (payload) => {
-  return {
-    type: GETID_TODO,
-    payload,
-  };
-};
+export const addTodo = createAction(ADD_TODO, (payload) => payload); // todoitem
+export const deleteTodo = createAction(DELETE_TODO, (payload) => payload);
+export const toggleStatusTodo = createAction(TOGGLE_TODO, (payload) => payload);
+export const getIdTodo = createAction(GETID_TODO, (payload) => payload);
 
 /* Initial State */
 const initialState = {
@@ -55,19 +35,16 @@ const todos = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
       return {
-        ...state,
         todos: [...state.todos, action.payload],
       };
 
     case DELETE_TODO:
       return {
-        ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
 
     case TOGGLE_TODO:
       return {
-        ...state,
         todos: state.todos.map((todo) =>
           todo.id === action.payload ? { ...todo, isDone: !todo.isDone } : todo
         ),
@@ -75,7 +52,6 @@ const todos = (state = initialState, action) => {
 
     case GETID_TODO:
       return {
-        ...state,
         todo: state.todos.find((todo) => {
           return todo.id === action.payload;
         }),
